@@ -2,48 +2,41 @@ import './role.css';
 import { DataGrid } from '@material-ui/data-grid';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
-import { rows } from '../../dummyData';
+import { useState,useEffect } from 'react';
 
 export default function Role(){
 
-    const [data, setData] = useState(rows);
-const onHandleDelete = (id) => {
-    console.log(id)
-    setData(data.filter((item) => item.id !== id));
-  };
+    const [data, setData] = useState([]);
+    const onHandleDelete = (id) => {
+      setData(data.filter((item) => item.id !== id));
+    };
+    useEffect(() =>{
+      const fetchData = async () => {
+          const response = await fetch("http://localhost:8080/api/v1/roles")
+          const data = await response.json()
+          console.log(data)
+          setData(data)
+      }
+      fetchData()
+    },[] )
+    // const fetchData = () => {
+    //   return fetch("http://localhost:8080/api/v1/roles")
+    //         .then((response) => response.json())
+    //         .then((data) => console.log(data));}
 
 const columns = [
-    { field: 'id', headerName: 'ID', width: 90 },
+    { field: 'id', headerName: 'ID', width: 120 },
     {
-      field: 'firstName',
-      headerName: 'First name',
+      field: 'name',
+      headerName: 'Role Name',
       width: 150,
       editable: true,
     },
     {
-      field: 'lastName',
-      headerName: 'Last name',
+      field: 'level',
+      headerName: 'Level',
       width: 150,
       editable: true,
-    },
-    {
-      field: 'age',
-      headerName: 'Age',
-      type: 'number',
-      width: 110,
-      editable: true,
-    },
-    {
-      field: 'fullName',
-      headerName: 'Full name',
-      description: 'This column has a value getter and is not sortable.',
-      sortable: false,
-      width: 160,
-      valueGetter: (params) =>
-        `${params.getValue(params.id, 'firstName') || ''} ${
-          params.getValue(params.id, 'lastName') || ''
-        }`,
     },
     {
         field: 'Action',
