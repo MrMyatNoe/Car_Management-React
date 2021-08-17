@@ -1,18 +1,98 @@
-.role{
-    flex: 4;
+.roleTitleContainer{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.roleEdit{
+.roleAddButton{
+    width: 80px;
     border: none;
-    border-radius: 10px;
-    padding: 5px 10px;
-    background-color: #3bb;
-    color: white;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: teal;
     cursor: pointer;
-    margin-right: 20px;
+    color: white;
+    font-size: 16px;
 }
 
-.roleDelete{
-    color: red;
-    cursor: pointer;
+.roleContainer{
+    display: flex;
+    margin-top: 20px;
 }
+
+.roleShow{
+    flex: 1;
+    padding: 20px;
+    -webkit-box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 75); 
+    box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 75);
+}
+
+.roleUpdate{
+    flex: 2;
+    padding: 20px;
+    -webkit-box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 75); 
+    box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 75);
+    margin-left: 20px;
+}
+
+/* .roleShowTop{
+    display: flex;
+    align-items: center;
+} */
+
+.roleShowTitle{
+    font-size: 14px;
+    font-weight: 600;
+    color: rgb(175, 170, 170);
+}
+
+.roleShowInfoTitle{
+    font-weight: 300;
+    margin-left: 10px;
+}
+
+.roleShowInfo{
+    display: flex;
+    align-items: center;
+    margin: 20px 0px;
+    color: #444;
+}
+
+.roleIcon{
+    font-size: 16px !important;
+}
+
+.roleUpdateForm{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.roleUpdateTitle{
+    font-style: 24px;
+    font-weight: 600;
+}
+
+.roleUpdateItem{
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+}
+
+.roleUpdateItem>label{
+    font-style: 14px;
+    margin-bottom: 5px;
+}
+
+.roleUpdateInput{
+    border: none;
+    width: 250px;
+    height: 30px;
+    border-bottom: 1px solid gray;
+}
+/* <div className="roleShowTop">
+            <div className="roleShowTopTitle">
+              <span className="roleShowName">Admin</span>
+              <span className="roleShowLevel">10</span>
+            </div>
+          </div> */

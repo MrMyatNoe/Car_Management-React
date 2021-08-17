@@ -3,6 +3,7 @@ import PersonIcon from '@material-ui/icons/Person';
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 
 import './sidebar.css'
+import { Link } from 'react-router-dom';
 
 export default function Sidebar() {
     return (
@@ -29,10 +30,12 @@ export default function Sidebar() {
                 <div className="sidebarMenu">
                     <h3 className="sidebarTitle">Quick Menu</h3>
                     <ul className="sidebarList">
-                        <li className="sidebarListItem">
-                            <LocalTaxiIcon className="sidebarIcon"/>
-                            Car
-                        </li>
+                        <Link to="/roles">
+                            <li className="sidebarListItem">
+                                <LocalTaxiIcon className="sidebarIcon"/>
+                                Role
+                            </li>
+                        </Link>
                         <li className="sidebarListItem">
                             <PersonIcon className="sidebarIcon"/>
                             Driver

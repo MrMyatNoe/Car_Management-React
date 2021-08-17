@@ -1,71 +1,77 @@
-import './role.css';
-import { DataGrid } from '@material-ui/data-grid';
-import DeleteIcon from '@material-ui/icons/Delete';
-import { Link } from 'react-router-dom';
-import { useState,useEffect } from 'react';
+import './role.css'
+import PermIdentityIcon from '@material-ui/icons/PermIdentity';
+import BuildIcon from '@material-ui/icons/Build';
+import { Link, useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
 export default function Role(){
 
-    const [data, setData] = useState([]);
-    const onHandleDelete = (id) => {
-      setData(data.filter((item) => item.id !== id));
-    };
-    useEffect(() =>{
-      const fetchData = async () => {
-          const response = await fetch("http://localhost:8080/api/v1/roles")
-          const data = await response.json()
-          console.log(data)
-          setData(data)
-      }
-      fetchData()
-    },[] )
-    // const fetchData = () => {
-    //   return fetch("http://localhost:8080/api/v1/roles")
-    //         .then((response) => response.json())
-    //         .then((data) => console.log(data));}
+  const [role, setRole] = useState([])
+  const {roleId} = useParams();
 
-const columns = [
-    { field: 'id', headerName: 'ID', width: 120 },
-    {
-      field: 'name',
-      headerName: 'Role Name',
-      width: 150,
-      editable: true,
-    },
-    {
-      field: 'level',
-      headerName: 'Level',
-      width: 150,
-      editable: true,
-    },
-    {
-        field: 'Action',
-        headerName: 'Action',
-        width: 150,
-        renderCell: (params) => {
-            return(
-                <>
-                    <Link to={"role/"+params.row.id}>
-                        <button className="roleEdit">Edit</button>
-                    </Link>
-                    <DeleteIcon className="roleDelete" onClick={()=>onHandleDelete(params.row.id)}/>
-                </>
-            )
-        }
+  console.log(roleId)
+  useEffect(
+        () => {
+            const fetchRole = async () =>{
+                const response = await fetch(`http://localhost:8080/api/v1/roles/${roleId}`)
+                const data = await response.json();
+                console.log(data)
+                setRole(data);
+            };
+            fetchRole();
+        }, [roleId]
+    );
+  
 
-    }
-  ];
+  return(
+    <div className="role">
+      <div className="roleTitleContainer">
+        <h1 className="roleTitle">Edit User</h1>
+        <Link to="/newRole">
+          <button className="roleAddButton">Create</button>
+        </Link>
+      </div>
+      <div className="roleContainer">
+        <div className="roleShow">
+          <div className="roleShowBottom">
+            <span className="roleShowTitle">Role Details</span>
+            <div className="roleShowInfo">
+              <PermIdentityIcon className="roleShowIcon"/>
+              <span className="roleShowInfoTitle">{role.name}</span>
+            </div>
 
-    return (
-        <div style={{ height: 400, width: '100%' }}>
-            <DataGrid
-        rows={data}
-        columns={columns}
-        pageSize={5}
-        rowsPerPageOptions={[5]}
-        checkboxSelection
-        disableSelectionOnClick
-      />
+            <div className="roleShowInfo">
+              <BuildIcon className="roleShowIcon"/>
+              <span className="roleShowInfoTitle">{role.level}</span>
+            </div>
+          </div>
         </div>
-    )
+        <div className="roleUpdate">
+          <span className="roleUpdateTitle">Edit</span>
+          <form className="roleUpdateForm">
+            <div className="roleUpdateLeft">
+              <div className="roleUpdateItem">
+                <label>Role Name</label>
+                <input
+                  type="text"
+                  placeholder="Admin or something"
+                  className="roleUpdateInput"/>
+              </div>
+
+              <div className="roleUpdateItem">
+                <label>Level</label>
+                <input
+                  type="number"
+                  placeholder="Admin or something"
+                  className="roleUpdateInput"
+                  min="1"
+                  max="10"/>
+              </div>
+            </div>
+            <div className="roleUpdateRight"></div>
+          </form>
+        </div>
+      </div>
+    </div>
+  )
 }
