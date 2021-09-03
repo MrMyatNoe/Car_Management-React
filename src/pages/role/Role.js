@@ -1,21 +1,51 @@
 import './role.css'
 import PermIdentityIcon from '@material-ui/icons/PermIdentity';
 import BuildIcon from '@material-ui/icons/Build';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams, useHistory } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
 export default function Role(){
 
   const [role, setRole] = useState([])
   const {roleId} = useParams();
+  
+  let history = useHistory()
+  const [name,setName] = useState("")
+  const [level,setLevel] = useState()
 
-  console.log(roleId)
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    const id = roleId;
+    const updateRole = {id, name, level}
+   console.log(updateRole)
+   fetch('http://localhost:8080/api/v1/roles',{
+       method: 'PUT',
+       headers: {'Content-Type': 'application/json'},
+       body: JSON.stringify(updateRole)
+   })
+   .then(r => r.json())
+   .then(() => {
+       console.log('role updated')
+       history.push('/roles')
+   })
+}
+
+const handleNameChange = (e) => {
+    e.preventDefault()
+    setName(e.target.value)
+    console.log(name)
+}
+
+const handleLevelChange = (e) => {
+    e.preventDefault()
+    setLevel(e.target.value)
+}
+
   useEffect(
         () => {
             const fetchRole = async () =>{
                 const response = await fetch(`http://localhost:8080/api/v1/roles/${roleId}`)
                 const data = await response.json();
-                console.log(data)
                 setRole(data);
             };
             fetchRole();
@@ -28,7 +58,7 @@ export default function Role(){
       <div className="roleTitleContainer">
         <h1 className="roleTitle">Edit User</h1>
         <Link to="/newRole">
-          <button className="roleAddButton">Create</button>
+          <button className="roleCreateButton">Create</button>
         </Link>
       </div>
       <div className="roleContainer">
@@ -48,27 +78,35 @@ export default function Role(){
         </div>
         <div className="roleUpdate">
           <span className="roleUpdateTitle">Edit</span>
-          <form className="roleUpdateForm">
+          <form className="roleUpdateForm" onSubmit={handleSubmit}>
             <div className="roleUpdateLeft">
               <div className="roleUpdateItem">
                 <label>Role Name</label>
                 <input
                   type="text"
-                  placeholder="Admin or something"
-                  className="roleUpdateInput"/>
+                  placeholder="Admin"
+                  className="roleUpdateInput"
+                  required
+                  onChange={handleNameChange}/>
               </div>
 
               <div className="roleUpdateItem">
                 <label>Level</label>
                 <input
                   type="number"
-                  placeholder="Admin or something"
+                  placeholder="Between 1 and 10"
                   className="roleUpdateInput"
                   min="1"
-                  max="10"/>
+                  max="10"
+                  required
+                  onChange={handleLevelChange}/>
+              </div>
+              <div className="roleUpdateItem">
+                <button className="roleUpdateButton">Update</button>
               </div>
             </div>
             <div className="roleUpdateRight"></div>
+            
           </form>
         </div>
       </div>

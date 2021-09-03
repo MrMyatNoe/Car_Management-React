@@ -12,10 +12,12 @@ export default function Sidebar() {
                 <div className="sidebarMenu">
                     <h3 className="sidebarTitle">Dashboard</h3>
                     <ul className="sidebarList">
-                        <li className="sidebarListItem">
-                            <LocalTaxiIcon className="sidebarIcon"/>
-                            Car
-                        </li>
+                        <Link to="/cars" className="link">
+                            <li className="sidebarListItem">
+                                <LocalTaxiIcon className="sidebarIcon"/>
+                                Car
+                            </li>
+                        </Link>
                         <li className="sidebarListItem">
                             <PersonIcon className="sidebarIcon"/>
                             Driver
@@ -30,7 +32,7 @@ export default function Sidebar() {
                 <div className="sidebarMenu">
                     <h3 className="sidebarTitle">Quick Menu</h3>
                     <ul className="sidebarList">
-                        <Link to="/roles">
+                        <Link to="/roles" className="link">
                             <li className="sidebarListItem">
                                 <LocalTaxiIcon className="sidebarIcon"/>
                                 Role
@@ -38,7 +40,7 @@ export default function Sidebar() {
                         </Link>
                         <li className="sidebarListItem">
                             <PersonIcon className="sidebarIcon"/>
-                            Driver
+                            User
                         </li>
                         <li className="sidebarListItem">
                             <AttachMoneyIcon className="sidebarIcon"/>

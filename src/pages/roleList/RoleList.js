@@ -6,23 +6,27 @@ import { useState,useEffect } from 'react';
 
 export default function RoleList(){
 
-    const [data, setData] = useState([]);
+    const [role, setRole] = useState([]);
     const onHandleDelete = (id) => {
-      setData(data.filter((item) => item.id !== id));
+      //setRole(RoleList.filter((role) => role.id !== id));
+      fetch(`http://localhost:8080/api/v1/roles?id=${id}`,{
+       method: 'DELETE',
+       headers: {'Content-Type': 'application/json'},
+   })
+   .then(() => {
+       console.log('role deleted')
+   })
     };
+    
     useEffect(() =>{
       const fetchData = async () => {
           const response = await fetch("http://localhost:8080/api/v1/roles")
           const data = await response.json()
           console.log(data)
-          setData(data)
+          setRole(data)
       }
       fetchData()
     },[] )
-    // const fetchData = () => {
-    //   return fetch("http://localhost:8080/api/v1/roles")
-    //         .then((response) => response.json())
-    //         .then((data) => console.log(data));}
 
 const columns = [
     { field: 'id', headerName: 'ID', width: 120 },
@@ -59,7 +63,7 @@ const columns = [
     return (
         <div style={{ height: 400, width: '100%' }}>
             <DataGrid
-        rows={data}
+        rows={role}
         columns={columns}
         pageSize={5}
         rowsPerPageOptions={[5]}

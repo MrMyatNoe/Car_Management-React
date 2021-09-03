@@ -1,11 +1,12 @@
 import Topbar from "./components//topbar/Topbar";
 import Sidebar from "./components/sidebar/Sidebar";
 import Home from './pages/home/Home';
-import { HashRouter as Router, Switch, Route, Link} from 'react-router-dom';
+import { HashRouter as Router, Switch, Route} from 'react-router-dom';
 import './App.css';
 import RoleList from './pages/roleList/RoleList'
 import Role from "./pages/role/Role";
 import NewRole from "./pages/newRole/NewRole";
+import CarList from "./pages/carList/CarList";
 
 function App() {
   return (
@@ -26,6 +27,9 @@ function App() {
             </Route>
             <Route path="/newRole">
               <NewRole />
+            </Route>
+            <Route path="/cars">
+              <CarList />
             </Route>
           </Switch>
         </div>

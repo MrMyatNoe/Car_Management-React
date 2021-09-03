@@ -4,13 +4,12 @@
     align-items: center;
 }
 
-.roleAddButton{
-    width: 80px;
+.roleCreateButton{
+    width: 100px;
     border: none;
     padding: 5px;
     border-radius: 5px;
     background-color: teal;
-    cursor: pointer;
     color: white;
     font-size: 16px;
 }
@@ -76,12 +75,12 @@
 .roleUpdateItem{
     display: flex;
     flex-direction: column;
-    margin-top: 10px;
 }
 
 .roleUpdateItem>label{
     font-style: 14px;
     margin-bottom: 5px;
+    margin-top: 5px;
 }
 
 .roleUpdateInput{
@@ -89,6 +88,16 @@
     width: 250px;
     height: 30px;
     border-bottom: 1px solid gray;
+}
+
+.roleUpdateButton{
+    width: 100px;
+    border: none;
+    background-color: green;
+    border-radius: 5px;
+    padding: 5px;
+    color: white;
+    margin-top: 20px;
 }
 /* <div className="roleShowTop">
             <div className="roleShowTopTitle">
